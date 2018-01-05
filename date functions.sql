@@ -1,9 +1,9 @@
- 
+﻿ 
  -- Date functions
 
  /*  GETDATE() and SYSDATETIME()
 SQL Server uses GETDATE() and SYSDATETIME() to get a current date and time. They are nondeterministic functions: 
-views and expressions that reference these columns can�t be indexed. Both functions accept no arguments and 
+views and expressions that reference these columns can’t be indexed. Both functions accept no arguments and 
 return the local current date and time. 
 The difference is, when we use
  GETDATE(), the precision is to the milliseconds and 
@@ -56,8 +56,14 @@ The difference is, when we use
 	select	CONVERT (date, GETDATE()) -- 2017-12-13
 --	select	CONVERT (year, GETDATE()) -- ERROR
  
+
+/*DATEPART (datepart,date)
+ DATEPART (datepart,date) returns an integer that represents the specified datepart of the specified date. 
+ Datepart could be specified by a whole name or an abbreviated name */
+
 	Select datepart(year,getdate())			--2017
 	Select datepart(MONTH,getdate())		--12
+	Select datepart(Week,getdate())	   ?
 	Select datepart(HOUR,getdate())			--7
 	Select datepart(MINUTE,getdate())		--19
 	Select datepart(SECOND,getdate())		--14
@@ -65,6 +71,20 @@ The difference is, when we use
 	Select datepart(NANOSECOND,getdate())	--133000000
 
 	--or
+	
+	/*
+			○ day could be specified as day, dd, d
+			○ month could be specified as month, mm, m
+			○ year could be specified as year yy.
+	*/
+
+	SELECT DATEPART(yy,  GETDATE() ) as year,
+           DATEPART(mm,  GETDATE() ) as month,
+           DATEPART(dd,  GETDATE() ) as day,
+           DATEPART(ww,  GETDATE() ) as week
+
+
+
 
 	declare @dt date = '2014-10-20'
     select year (@dt) as year,
